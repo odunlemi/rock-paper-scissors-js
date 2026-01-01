@@ -9,22 +9,24 @@ const roundResultElement = document.getElementById("round-result");
 const humanScoreElement = document.getElementById("human-score");
 const computerScoreElement = document.getElementById("computer-score");
 const buttons = document.querySelectorAll(".choice-btn");
+const resetBtn = document.getElementById("reset-btn");
 
 // Function to get the computer choice
 function getComputerChoice() {
   const randomNum = Math.random();
 
-  if (randomNum < 0.33) {
-    return "rock";
-  } else if (randomNum < 0.66) {
-    return "paper";
-  } else {
-    return "scissors";
-  }
+  if (randomNum < 0.33) return "rock";
+  if (randomNum < 0.66) return "paper";
+  return "scissors";
 }
 
 // Function to determine winner
 function playRound(humanChoice) {
+  // Stop if game is already won
+  if (humanScore >= 5 || computerScore >= 5) {
+    return;
+  }
+
   const computerChoice = getComputerChoice();
   let resultMessage = "";
 
@@ -43,6 +45,7 @@ function playRound(humanChoice) {
   }
 
   updateUI(resultMessage);
+  checkWinner();
 }
 
 // Update UI function
@@ -52,9 +55,52 @@ function updateUI(message) {
   computerScoreElement.textContent = computerScore;
 }
 
+// Check for game winner
+function checkWinner() {
+  if (humanScore === 5) {
+    roundResultElement.textContent = "Congratulations! You won the game";
+    endGame();
+  } else if (computerScore === 5) {
+    roundResultElement.textContent = "Game over! Computer won the game.";
+    endGame();
+  }
+}
+
+// End game state
+function endGame() {
+  resetBtn.style.display = "inline-block";
+  buttons.forEach((btn) => {
+    if (btn.id !== "reset-btn") {
+      btn.disabled = true;
+      btn.style.opacity = "0.5";
+      btn.style.cursor = "not-allowed";
+    }
+  });
+}
+
+// Reset game function
+function resetGame() {
+  humanScore = 0;
+  computerScore = 0;
+  updateUI("Choose an option to start playing.");
+  resetBtn.style.display = "none";
+
+  buttons.forEach((btn) => {
+    if (btn.id !== "reset-btn") {
+      btn.disabled = false;
+      btn.style.opacity = "1";
+      btn.style.cursor = "pointer";
+    }
+  });
+}
+
 // Event Listeners
 buttons.forEach((button) => {
-  button.addEventListener("click", () => {
-    playRound(button.id);
-  });
+  if (button.id !== "reset-btn") {
+    button.addEventListener("click", () => {
+      playRound(button.id);
+    });
+  }
 });
+
+resetBtn.addEventListener("click", resetGame);

@@ -1,0 +1,111 @@
+/* Font-family: Mogwai */
+@font-face {
+  font-family: "Mogwai";
+  src: url(./assets/fonts/Mogwai\ Font.ttf) format("truetype");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #8b2635;
+  --background-color: #000000;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  font-family: "Mogwai", sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-bottom: 1.5rem;
+}
+
+.game-area {
+  margin-top: 2rem;
+  padding: 2rem;
+  border: 2px solid var(--primary-color);
+  border-radius: 10px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.choice-btn {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  border: none;
+  padding: 10px 20px;
+  font-family: "Mogwai", sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.choice-btn:hover {
+  background-color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+.choice-btn:active {
+  transform: scale(0.95);
+}
+
+.results {
+  font-size: 1.2rem;
+}
+
+.scores {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+  font-weight: 700;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
+  .choice-btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
